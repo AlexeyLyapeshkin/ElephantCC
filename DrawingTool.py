@@ -10,6 +10,17 @@ class DrawingTool:
     """
     Class is using to draw a simple figures in text file on "canvas".
 
+    :Usage: In the file input.txt, enter the data in the following format:
+
+        - Line :: L x1 y1 x2 y2 (horizontal or vertical) ((x1,y1) - top left point; (x2,y2) - lower right point)
+        - Rectangle :: R x1 y1 x2 y2 ((x1,y1) - top left point; (x2,y2) - lower right point)
+        - Bucket Fill :: B x y char ((x,y) - start point, char - char, that will be painted over)
+        - Canvas :: width, height.
+        - You can only draw if a canvas has been created.
+        - Shapes are drawn using the draw method.
+        - Read comments.
+        - Result in file 'output.txt'.
+
     """
 
     def __in_range(self, x1, y1, x2=-1, y2=-1):
