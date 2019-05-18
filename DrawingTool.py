@@ -15,10 +15,10 @@ class DrawingTool:
     def __in_range(self, x1, y1, x2=-1, y2=-1):
         """
         Checks for coordinates on canvas.
-        :param x1: x
-        :param y1: y
-        :param x2: x
-        :param y2: y
+        :param x1: top left x coord
+        :param y1: top left y coord
+        :param x2: lower right x coord or -1, if undefined
+        :param y2: lower right y coord or -1, if undefined
         :return: True, if the point(s) is on canvas, else False.
         """
 
@@ -168,7 +168,7 @@ class DrawingTool:
         Draw figures in canvas.
         :param mode: mode of drawing [C, L, R, B]
         :param list_of_args: list of args
-        :return:nothing
+        :return: 1 if all is OK, else -1
         """
 
         # Drawing Canvas
