@@ -1,5 +1,5 @@
-C 20 5
-L 1 1 5 1
-L 7 1 7 3
-R 10 1 15 3
-B 7 3 1
+C 20 4 # Canvas
+L 1 2 6 2 # Line (horizontal)
+L 6 3 6 4 # Line (vertical)
+R 16 1 20 4# Rectangle
+B 10 3 o # Fill 3
