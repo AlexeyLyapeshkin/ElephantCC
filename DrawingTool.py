@@ -293,5 +293,3 @@ class DrawingTool:
 
             if y > 0:
                 self.Stack.append((x, y - 1))  # up
-
-        return 1
