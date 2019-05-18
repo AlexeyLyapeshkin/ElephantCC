@@ -9,8 +9,12 @@ def main():
     Canvas = DrawingTool()
 
     for i in Canvas.read_from_file():
-        mode, *params = i
-        Canvas.draw(mode, Canvas.convert(params))
+        try:
+            mode, *params = i
+            Canvas.draw(mode, Canvas.convert(params))
+        except ValueError:
+            print('Error of convert!')
+
 
 
 

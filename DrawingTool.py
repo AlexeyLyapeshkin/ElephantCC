@@ -3,11 +3,37 @@ import os
 
 
 class DrawingTool:
+    """
+
+    Class is using to draw a simple figures in text file on canvas.
+
+    """
 
     def create_canvas(self, x, y):
+        """
+        Create canvas to draw.
+        :param   x: x-coord - width
+        :param   y: y-coord = height
+        :return: nothing
+        """
         self.MainArray = np.zeros((y, x), dtype=str)
 
+    def is_createrd_canvas(self):
+        """
+        Checks existing of MainArray.
+        :return: True, if exis; False, if not exist.
+        """
+        if hasattr(self, 'MainArray'):
+            return True
+        else:
+            return False
+
     def convert(self, list_):
+        """
+        Converts numeric values ​​from string to number.
+        :param list_: list of params
+        :return: converted list
+        """
         i = 0
         while i < len(list_):
             if list_[i].isdigit():
@@ -16,6 +42,11 @@ class DrawingTool:
         return list_
 
     def parse_line(self, list_of_lines):
+        """
+        Split the inputs line of args to divided args.
+        :param list_of_lines: list of params from file
+        :return: parsed list of params
+        """
 
         list = []
 
@@ -26,9 +57,11 @@ class DrawingTool:
             list.append(line)
         return list
 
-        # self.MainArray[2][3] = 'x' # y, x
-
     def read_from_file(self):
+        """
+        Get args from file
+        :return: generator of params
+        """
 
         file_input = open('input.txt', 'r')
         list_of_lines = file_input.readlines()
@@ -37,6 +70,10 @@ class DrawingTool:
             yield i
 
     def write_in_file(self):
+        """
+        Wrap output of array/canvas in file.
+        :return: nothing
+        """
 
         x_len = len(self.MainArray[0])
         y_len = len(self.MainArray)
@@ -69,6 +106,12 @@ class DrawingTool:
         file_output.close()
 
     def draw(self, mode, list_of_args):
+        """
+        Draw figures in canvas.
+        :param mode: mode of drawing [C, L, R, B]
+        :param list_of_args: list of args
+        :return:nothing
+        """
 
         if mode.lower() == 'c':
             x, y = list_of_args
@@ -76,51 +119,53 @@ class DrawingTool:
             self.create_canvas(x, y)
             self.write_in_file()
 
-        if mode.lower() == 'l':
+        if self.is_createrd_canvas():
 
-            x1, y1, x2, y2 = list_of_args
+            if mode.lower() == 'l':
 
-            if x1 == x2 and y1 != y2:
-                for i in range(y1, y2):
-                    self.MainArray[i][x1] = 'x'
+                x1, y1, x2, y2 = list_of_args
 
-            elif y1 == y2 and x1 != x2:
-                for i in range(x1, x2):
-                    self.MainArray[y1][i] = 'x'
+                if x1 == x2 and y1 != y2:
+                    for i in range(y1, y2):
+                        self.MainArray[i][x1] = 'x'
 
-            self.write_in_file()
+                elif y1 == y2 and x1 != x2:
+                    for i in range(x1, x2):
+                        self.MainArray[y1][i] = 'x'
 
-        if mode.lower() == 'r':
+                self.write_in_file()
 
-            x1, y1, x2, y2 = list_of_args
+            if mode.lower() == 'r':
 
-            if x1 != x2 and y1 != y2:
+                x1, y1, x2, y2 = list_of_args
 
-                for i in range(x1, x2 + 1):
-                    self.MainArray[y1][i] = 'x'
-                    self.MainArray[y2][i] = 'x'
+                if x1 != x2 and y1 != y2:
 
-                for i in range(y1, y2 + 1):
-                    self.MainArray[i][x1] = 'x'
-                    self.MainArray[i][x2] = 'x'
+                    for i in range(x1, x2 + 1):
+                        self.MainArray[y1][i] = 'x'
+                        self.MainArray[y2][i] = 'x'
 
-            self.write_in_file()
+                    for i in range(y1, y2 + 1):
+                        self.MainArray[i][x1] = 'x'
+                        self.MainArray[i][x2] = 'x'
 
-        if mode.lower() == 'b':
+                self.write_in_file()
 
-            x, y, color = list_of_args
+            if mode.lower() == 'b':
 
-            if x != y:
-                self.floodfill(x, y, color)
+                x, y, color = list_of_args
 
-            self.write_in_file()
+                if x != y:
+                    self.floodfill(x, y, color)
+
+                self.write_in_file()
+        else:
+            print('Canvas does not created!')
 
     def floodfill(self, x, y, color):
 
-        # assume surface is a 2D image and surface[x][y] is the color at x, y.
-
-        worldWidth = len(self.MainArray[0])
-        worldHeight = len(self.MainArray)
+        arrayWidth = len(self.MainArray[0])
+        arrayHeight = len(self.MainArray)
 
         self.theStack = [(x, y)]
 
@@ -133,13 +178,13 @@ class DrawingTool:
 
             self.MainArray[y][x] = color
 
-            if x < worldWidth - 1:
+            if x < arrayWidth - 1:
                 self.theStack.append((x + 1, y))  # right
 
             if x > 0:
                 self.theStack.append((x - 1, y))  # left
 
-            if y < worldHeight - 1:
+            if y < arrayHeight - 1:
                 self.theStack.append((x, y + 1))  # down
 
             if y > 0:
