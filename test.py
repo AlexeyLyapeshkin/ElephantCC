@@ -19,6 +19,7 @@ class test_DrawingTool(unittest.TestCase):
 
         # Canvas tests
         self.assertEqual(DT.draw('c', [0, 0]), -1, 'Should be -1')
+        self.assertEqual(DT.draw('c', ['h', 'w']), -1, 'Should be -1')
 
         # Rectangle tests
         self.assertEqual(DT.draw('r', [1, 1, 3, 3]), 1, 'Should be 1')
