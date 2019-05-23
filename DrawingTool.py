@@ -185,12 +185,16 @@ class DrawingTool:
         # Drawing Canvas
         if mode.lower() == 'c':
             x, y = list_of_args
-            if x > 0 and y > 0:
-                self.__create_canvas(x, y)
-                self.__write_in_file()
+            try:
+                if x > 0 and y > 0:
+                    self.__create_canvas(x, y)
+                    self.__write_in_file()
 
-                return 1
-            else:
+                    return 1
+                else:
+                    return -1
+            except TypeError:
+                print(CWARN + 'Bad args! Mode:{0} Args:{1}.'.format(mode.upper(), [x, y]) + CEND)
                 return -1
 
         if self.__is_createrd_canvas():
